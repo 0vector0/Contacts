@@ -10,9 +10,12 @@
 
     <properties>
         <spring.version>4.3.3.RELEASE</spring.version>
+        <spring.data.jpa.version>1.10.3.RELEASE</spring.data.jpa.version>
         <hibernate.version>5.2.2.Final</hibernate.version>
         <joda.time.version>2.9.4</joda.time.version>
+        <joda.time.jsptags.version>1.1.1</joda.time.jsptags.version>
         <usertype.version>5.0.0.GA</usertype.version>
+        <google.guava.version>14.0.1</google.guava.version>
 
     </properties>
     <dependencies>
@@ -43,6 +46,12 @@
             <artifactId>spring-orm</artifactId>
             <version>${spring.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>${spring.data.jpa.version}</version>
+        </dependency>
+
         <!---->
 
         <!--hibernate-->
@@ -64,10 +73,33 @@
             <artifactId>usertype.core</artifactId>
             <version>${usertype.version}</version>
         </dependency>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time-jsptags</artifactId>
+            <version>${joda.time.jsptags.version}</version>
+        </dependency>
+
         <!---->
+
+        <!--TODO: 26.09.2016 read about com.google.guava-->
+        <!--<dependency>-->
+        <!--<groupId>com.google.guava</groupId>-->
+        <!--<artifactId>guava</artifactId>-->
+        <!--<version>${google.guava.version}</version>-->
+        <!--</dependency>-->
 
     </dependencies>
     <build>
         <finalName>Contacts</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 </project>
