@@ -11,21 +11,26 @@
     <properties>
         <spring.version>4.3.3.RELEASE</spring.version>
         <spring.data.jpa.version>1.10.3.RELEASE</spring.data.jpa.version>
+
         <hibernate.version>5.2.2.Final</hibernate.version>
+
         <joda.time.version>2.9.4</joda.time.version>
         <joda.time.jsptags.version>1.1.1</joda.time.jsptags.version>
         <usertype.version>5.0.0.GA</usertype.version>
-        <google.guava.version>14.0.1</google.guava.version>
+
+        <jstl.version>1.2</jstl.version>
+
+        <!--TODO: 26.09.2016 read about com.google.guava-->
+        <!--<google.guava.version>14.0.1</google.guava.version>-->
+
+        <jstl.version>1.2</jstl.version>
+
+        <slf4j.log4j.version>1.7.21</slf4j.log4j.version>
 
     </properties>
     <dependencies>
 
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>3.8.1</version>
-            <scope>test</scope>
-        </dependency>
+
 
         <!--database dependency-->
         <dependency>
@@ -51,7 +56,6 @@
             <artifactId>spring-data-jpa</artifactId>
             <version>${spring.data.jpa.version}</version>
         </dependency>
-
         <!---->
 
         <!--hibernate-->
@@ -60,6 +64,13 @@
             <artifactId>hibernate-core</artifactId>
             <version>${hibernate.version}</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+
         <!---->
 
         <!--for DateTime birthDate in contact entity-->
@@ -78,8 +89,29 @@
             <artifactId>joda-time-jsptags</artifactId>
             <version>${joda.time.jsptags.version}</version>
         </dependency>
-
         <!---->
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>${jstl.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j.log4j.version}</version>
+        </dependency>
+
+        <!-- Apache Commons DBCP -->
+        <!-- https://mvnrepository.com/artifact/commons-dbcp/commons-dbcp -->
+        <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <version>1.4</version>
+        </dependency>
+
+
 
         <!--TODO: 26.09.2016 read about com.google.guava-->
         <!--<dependency>-->
