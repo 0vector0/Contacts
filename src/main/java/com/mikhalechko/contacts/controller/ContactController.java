@@ -17,6 +17,7 @@ import java.util.List;
 public class ContactController {
 
     private final Logger logger = LoggerFactory.getLogger(ContactController.class);
+
     private ContactService contactService;
 
     @RequestMapping(method = RequestMethod.GET)

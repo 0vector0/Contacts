@@ -5,7 +5,7 @@ import com.mikhalechko.contacts.model.Contact;
 import java.util.List;
 
 public interface ContactService {
-    List findAll();
+    List<Contact> findAll();
     Contact findById(Long id);
     Contact save(Contact contact);
 }

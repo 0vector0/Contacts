@@ -1,0 +1,75 @@
+<beans xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa" xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+
+    <context:component-scan base-package="com.mikhalechko.contacts"/>
+
+
+    <!--<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
+    <!--<beans:property name="prefix" value="/WEB-INF/views/"/>-->
+    <!--<beans:property name="suffix" value=".jspx"/>-->
+    <!--</beans:bean>-->
+
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <property name="suffix" value=".jspx"/>
+    </bean>
+
+    <context:annotation-config/>
+
+    <jpa:repositories base-package="com.mikhalechko.contacts"
+                      entity-manager-factory-ref="factory"
+                      transaction-manager-ref="txManager"/>
+
+    <!--После чего объявить DataSource в spring.xml-->
+    <!-- Database Information -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.postgresql.Driver"/>
+        <property name="url" value="jdbc:postgresql://localhost/contacts"/>
+        <property name="username" value="postgres"/>
+        <property name="password" value="root"/>
+
+    </bean>
+
+
+    <!--Его передать в EntityManagerFactory-->
+    <bean id="factory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <!--<property name="persistenceXmlLocation" value="classpath:META-INF/persistence.xml"/>-->
+        <property name="packagesToScan" value="com.mikhalechko.contacts"/>
+        <property name="dataSource" ref="dataSource"/>
+        <property name="jpaVendorAdapter" ref="jpaVendorAdapter"/>
+        <property name="persistenceUnitName" value="Contacts"/>
+
+    </bean>
+
+    <bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+        <property name="showSql" value="false"/>
+        <property name="generateDdl" value="true"/>
+        <property name="database" value="POSTGRESQL"/>
+        <property name="databasePlatform" value="org.hibernate.dialect.PostgreSQL95Dialect"/>
+
+
+    </bean>
+
+    <!--После чего создать transactionManager используя EntityManagerFactory-->
+    <bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="factory"/>
+        <property name="jpaDialect" ref="jpaDialect"/>
+    </bean>
+    <!--А в него внедрить JpaDialect-->
+    <bean id="jpaDialect" class="org.springframework.orm.jpa.vendor.HibernateJpaDialect"/>
+
+    <!--После чего включил декларативные транзакции с помощью-->
+    <tx:annotation-driven transaction-manager="txManager" proxy-target-class="true"/>
+    <mvc:default-servlet-handler/>
+    <mvc:annotation-driven/>
+
+</beans>
